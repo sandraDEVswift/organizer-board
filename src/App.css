@@ -65,16 +65,7 @@
     max-width: 14%;
   }
   
-  .note {
-   
-  }
   
-  .note .author {
-    display: block;
-    margin: 40px 0 0 0;
-    text-align: right;
-    text-decoration:none;
-  }
 
   .sticky {
     color: #333;
@@ -82,8 +73,6 @@
     background:#ffc;
     display:block;
     margin-bottom: 20px;
-     
-    width: auto;
     margin: 0 auto;
     padding: 20px;
     font-family: Satisfy;
@@ -97,14 +86,19 @@
   }
 
   .big {
-    height:10em;
     width:10em;
     padding:1em;
     font-size: 20px;
   }
 
+  .big .author {
+    display: block;
+    margin: 40px 0 0 0;
+    text-align: right;
+    text-decoration:none;
+  }
+
   .small {
-    height:5em;
     width:5em;
   }
 
@@ -153,8 +147,8 @@
 
   .options {
     position: absolute;
-    right: 20px;
-    bottom: 20px;
+    right: 5px;
+    top: 5px;
     display: none;
   }
 
