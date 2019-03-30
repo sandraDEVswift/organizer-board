@@ -18,7 +18,7 @@ class StickyNote extends Component {
   render() {
     const display = this.props.sticky.visibility ? 'display' : ''
     return(
-      <div className="col-sm-3 margin10"
+      <div className="col-sm-4 margin10"
       onMouseEnter={() => this.onDisplay(true)}
       onMouseLeave={() => this.onDisplay(false)} >
           <div className= {`quote-container note  sticky yellow item ${this.props.sticky.color } ${this.props.sticky.rotate }`} >
@@ -43,9 +43,9 @@ class StickyNote extends Component {
 class StickyNode extends Component {
   render() {
     return(
-    <div className="col-sm-3">
+    <div className="col-sm-4">
       <br />
-      <div className={`little-note sticky small ${this.props.note.color} ${this.props.note.rotate }`}>
+      <div className={`little-note sticky ${this.props.note.color} ${this.props.note.rotate }`}>
           <blockquote className="font10">
              {this.props.note.text}
              
@@ -111,7 +111,7 @@ class Modal extends Component {
   return(
       
     <div className="modal fade" id={this.props.id} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div className="modal-dialog modal-xl" role="document">
+      <div className="modal-dialog modal-lg" role="document">
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalLabel">{this.props.board.title}</h5>
@@ -171,8 +171,12 @@ class Modal extends Component {
 
 //list of boards
 class Board extends Component {
-
+  constructor(props) {
+    super(props)
+    
+  }
   render() {
+    let title = (this.props.board.title).toUpperCase()
     return(
    
       <div className="col-sm-4 margin10" >
@@ -186,7 +190,7 @@ class Board extends Component {
       <div className="board" data-toggle="modal" data-target={`#item${this.props.id}`}>
       <br />
         <div className="container">
-          <h5>{this.props.board.title}</h5>
+          <h5>{title}</h5>
              
                 <div className="row">
                   <BoardNode notes={this.props.board.notes} /> 
