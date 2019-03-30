@@ -12,15 +12,16 @@ class StickyNote extends Component {
   
   onDisplay(yes) {
     console.log(yes)
-    this.props.display()
+    this.props.show(yes)
+    
   }
   render() {
     const display = this.props.sticky.visibility ? 'display' : ''
     return(
       <div className="col-sm-3 margin10"
       onMouseEnter={() => this.onDisplay(true)}
-      onMouseLeave={this.onDisplay(false)} >
-          <div className= {`quote-container note yellow item ${this.props.sticky.color }`} >
+      onMouseLeave={() => this.onDisplay(false)} >
+          <div className= {`quote-container note  sticky yellow item ${this.props.sticky.color } ${this.props.sticky.rotate }`} >
   
                   <blockquote>
                      {this.props.sticky.text}
@@ -42,9 +43,13 @@ class StickyNote extends Component {
 class StickyNode extends Component {
   render() {
     return(
-    <div className="col-sm-3 " >
-      <div className={`little-note ${this.props.note.color}`}>
-            
+    <div className="col-sm-3">
+      <br />
+      <div className={`little-note sticky small ${this.props.note.color} ${this.props.note.rotate }`}>
+          <blockquote className="font10">
+             {this.props.note.text}
+             
+          </blockquote>
       </div>
     </div>
     )
@@ -64,8 +69,14 @@ class BoardNode extends Component {
 }
 
 class Modal extends Component {
+
+  constructor(props) {
+    super(props)
+  }
  
- 
+  componentDidMount() {
+   
+  }
   add(note, id, color) {
     if (note != "") {
       this.props.add(note, id, color)
@@ -80,7 +91,13 @@ class Modal extends Component {
   }
 
   handleColorSelection(event) {
+   
     this.props.handleColorSelection(event.target.value)
+  }
+
+  checkButton(event) {
+    console.log('color selection '+ event.target.value)
+    event.target.checked = event.target.value === this.props.colorSelection
   }
 
   render() {
@@ -88,7 +105,7 @@ class Modal extends Component {
         return <StickyNote 
         sticky={sticky} 
         key={index} 
-        display={this.props.display} /> 
+        show={this.props.display} /> 
     })
   
   return(
@@ -105,6 +122,7 @@ class Modal extends Component {
           </div>
           <div className="modal-body">
                   <div className="container-fluid">
+                          <br />
                           <div className="row">
                                 {stickiesList} 
                            </div>
@@ -124,15 +142,15 @@ class Modal extends Component {
 
                       <div className="col-sm-12">
                           <div className="form-check form-check-inline">
-                              <input className="form-check-input"  ref="color" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="pink" onChange={(e) => this.handleColorSelection(e)}/>
+                              <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="pink" onChange={(e) => this.handleColorSelection(e)} onEnter={(e) => this.checkButton(e)} defaultChecked={this.props.colorSelection === 'pink'} />
                               <label className="form-check-label radioBtncolor pink" for="inlineRadio1"></label>
                               </div>
                               <div className="form-check form-check-inline">
-                              <input className="form-check-input" ref="color" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="blue" onChange={(e) => this.handleColorSelection(e)} />
+                              <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="blue" onChange={(e) => this.handleColorSelection(e)}  onEnter={(e) => this.checkButton(e)} checked={this.props.colorSelection === 'blue'} />
                               <label className="form-check-label radioBtncolor blue" for="inlineRadio2"></label>
                               </div>
                               <div className="form-check form-check-inline">
-                              <input className="form-check-input" ref="color" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="orange" onChange={(e) => this.handleColorSelection(e)} />
+                              <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="orange" onChange={(e) => this.handleColorSelection(e)}  onEnter={(e) => this.checkButton(e)} checked={this.props.colorSelection === 'orange' } />
                               <label className="form-check-label radioBtncolor orange" for="inlineRadio3"></label>
                           </div>
                       </div>
@@ -163,6 +181,7 @@ class Board extends Component {
       id={`item${this.props.id}`} 
       add={this.props.add}
       handleColorSelection={this.props.handleColorSelection} 
+      colorSelection={this.props.colorSelection}
       display={this.props.display} />
       <div className="board" data-toggle="modal" data-target={`#item${this.props.id}`}>
       <br />
@@ -192,6 +211,7 @@ class DashBoard extends Component {
       id={item} 
       add={this.props.add}
       display={this.props.display}
+      colorSelection={this.props.colorSelection}
       handleColorSelection={this.props.handleColorSelection}
       />
     })
@@ -215,36 +235,43 @@ class App extends Component {
   constructor(props) {
     super(props)
 
+    const rotate = {
+      three: 'ThreeDegBackwards',
+      four: 'FourDeg',
+      five : 'FiveDeg'
+    }
+
     this.state = {
       data: [
           {title: 'board 1', notes: [
-            {text: 'note 1', color: 'pink', visibility: false},
-            {text: 'note 2', color: 'pink', visibility: false},
-            {text: 'note 3', color: 'blue', visibility: false}
+            {text: 'note 1', color: 'pink', rotate: rotate.five, visibility: false},
+            {text: 'note 2', color: 'pink', rotate: rotate.four, visibility: false},
+            {text: 'note 3', color: 'blue', rotate: rotate.five, visibility: false}
           ]}, 
           {title: 'board 2', notes: [
-            {text: 'note 1', color: 'pink', visibility: false},
-            {text: 'note 2', color: 'blue', visibility: false},
-            {text: 'note 3', color: 'pink', visibility: false},
-            {text: 'note 3', color: 'yellow', visibility: false},
+            {text: 'note 1', color: 'pink', rotate: rotate.three, visibility: false},
+            {text: 'note 2', color: 'blue', rotate: rotate.four, visibility: false},
+            {text: 'note 3', color: 'pink', rotate: rotate.three, visibility: false},
+            {text: 'note 3', color: 'yellow', rotate: rotate.five, visibility: false},
           ]},
           {title: 'board 3', notes: [
-            {text: 'note 1', color: 'blue', visibility: false},
-            {text: 'note 2', color: 'blue', visibility: false},
-            {text: 'note 3', color: 'yellow', visibility: false}
+            {text: 'note 1', color: 'blue', rotate: rotate.four, visibility: false},
+            {text: 'note 2', color: 'blue', rotate: rotate.five, visibility: false},
+            {text: 'note 3', color: 'yellow', rotate: rotate.three, visibility: false}
           ]},
           {title: 'board 4', notes: [
-            {text: 'note 1', color: 'blue', visibility: false},
-            {text: 'note 2', color: 'yellow', visibility: false},
-            {text: 'note 3', color: 'blue', visibility: false}, 
-            {text: 'note 4', color: 'pink', visibility: false}, 
-            {text: 'note 5', color: 'pink', visibility: false}
+            {text: 'note 1', color: 'blue', rotate: rotate.five, visibility: false},
+            {text: 'note 2', color: 'yellow', rotate: rotate.five, visibility: false},
+            {text: 'note 3', color: 'blue', rotate: rotate.five, visibility: false}, 
+            {text: 'note 4', color: 'pink', rotate: rotate.five, visibility: false}, 
+            {text: 'note 5', color: 'pink', rotate: rotate.five, visibility: false}
           ]},
       ],
-      selectedOption: ''
+      selectedOption: 'pink'
     }
 
     this.add = this.add.bind(this)
+    this.display = this.display.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
 
   }
@@ -256,16 +283,24 @@ handleColorSelection(color) {
   console.log('color selected: ' + color)
 }
 
+get(id) {
+  this.state.data.forEach((board) => {
+    if (board.title == id) {
+      return board
+    }
+  });
+}
   add(note, id) {
-    this.state.data.forEach((board) => {
-      if (board.title == id) {
-        board.notes.push({text: note, color: this.state.selectedOption, visibility: false})
-      }
-    });
+    let board = this.get(id)
+    board.notes.push({text: note, color: this.state.selectedOption, visibility: false})
     this.setState({
       data : this.state.data
     });
     console.log('add ' + note + ' ' + id + ' '+ this.state.selectedOption)
+  }
+
+  display(toggle) {
+    console.log(toggle)
   }
 
   render() {
@@ -273,6 +308,8 @@ handleColorSelection(color) {
       <DashBoard 
       boards={this.state.data} 
       add={this.add} 
+      display={this.display}
+      colorSelection={this.state.selectedOption}
       handleColorSelection={this.handleColorSelection}/>
     );
   }

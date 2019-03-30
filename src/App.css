@@ -47,18 +47,12 @@
 
   .board {
     width: auto;
+    padding: 20px;
     background: #FEEF57; 
   }
 
   .board h5 {
     font-family: 'Satisfy';
-  }
-
-  .little-note {
-    width: 60px;
-    height: 60px;
-    background: #AEF0F7; 
-    margin-bottom: 20px;
   }
 
   .width25 {
@@ -72,20 +66,68 @@
   }
   
   .note {
-    color: #333;
-    position: relative;
-    width: auto;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Satisfy;
-    font-size: 20px;
-    box-shadow: 0 10px 10px 2px rgba(0,0,0,0.3);
+   
   }
   
   .note .author {
     display: block;
     margin: 40px 0 0 0;
     text-align: right;
+    text-decoration:none;
+  }
+
+  .sticky {
+    color: #333;
+    position: relative;
+    background:#ffc;
+    display:block;
+    margin-bottom: 20px;
+     
+    width: auto;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Satisfy;
+ 
+    /* Firefox */
+    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    /* Safari+Chrome */
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    /* Opera */
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  }
+
+  .big {
+    height:10em;
+    width:10em;
+    padding:1em;
+    font-size: 20px;
+  }
+
+  .small {
+    height:5em;
+    width:5em;
+  }
+
+  .FourDeg {
+    -o-transform:rotate(4deg);
+    -webkit-transform:rotate(4deg);
+    -moz-transform:rotate(4deg);
+    position:relative;
+    top:5px;
+  }
+  .ThreeDegBackwards {
+    -o-transform:rotate(-3deg);
+    -webkit-transform:rotate(-3deg);
+    -moz-transform:rotate(-3deg);
+    position:relative;
+    top:-5px;
+  }
+  .FiveDeg {
+    -o-transform:rotate(5deg);
+    -webkit-transform:rotate(5deg);
+    -moz-transform:rotate(5deg);
+    position:relative;
+    top:-10px;
   }
 
   .yellow {
@@ -137,6 +179,11 @@
   .blue {
     background: #ADF2F6
   }
+
+  .font10 {
+    font-size: 10px!important;
+  }
+ 
 
   @-webkit-keyframes removed-item-animation {
     0% {
