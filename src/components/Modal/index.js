@@ -71,7 +71,7 @@ export default class Modal extends Component {
         });
       } 
 
-      if (!this.editing) {
+      if (!this.editing && this.state.title != '') {
         this.update(this.props.boardId, this.state.title)
       }
       console.log('editing '+ this.state.editing)
