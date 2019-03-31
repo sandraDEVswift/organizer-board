@@ -13,6 +13,7 @@ export default class DashBoard extends Component {
         display={this.props.display}
         delete={this.props.delete}
         deleteBoard={this.props.deleteBoard}
+        update={this.props.update}
         colorSelection={this.props.colorSelection}
         handleColorSelection={this.props.handleColorSelection}
         />

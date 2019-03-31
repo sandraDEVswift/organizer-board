@@ -27,6 +27,7 @@ export default class Board extends Component {
         colorSelection={this.props.colorSelection}
         delete={this.props.delete}
         deleteBoard={this.props.deleteBoard}
+        update={this.props.update}
         display={this.props.display} />
   
         <div className="board" data-toggle="modal" data-target={`#item${this.props.boardId}`}>

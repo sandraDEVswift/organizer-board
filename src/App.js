@@ -51,6 +51,7 @@ class App extends Component {
     this.display = this.display.bind(this)
     this.delete = this.delete.bind(this)
     this.addBoard = this.addBoard.bind(this)
+    this.update = this.update.bind(this)
     this.deleteBoard = this.deleteBoard.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
   }
@@ -111,6 +112,14 @@ display(toggle, boardId, itemId) {
   });
 }
 
+update(boardId, title) {
+  let board = this.state.data[boardId]
+  board.title = title
+  console.log('updating '+  board.title  + 'with ' + title)
+  this.setState({
+    data : this.state.data
+  });
+}
 
 delete(boardId, itemId) {
   let board = this.state.data[boardId]
@@ -130,6 +139,7 @@ render() {
       add={this.add} 
       delete={this.delete}
       deleteBoard={this.deleteBoard}
+      update={this.update}
       display={this.display}
       colorSelection={this.state.selectedOption}
       handleColorSelection={this.handleColorSelection}/>
