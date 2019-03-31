@@ -3,6 +3,30 @@ import StickyNote from '.././StickyNote';
 
 class Title extends Component {
 
+  constructor(props) {
+    super(props)
+    this.state = {
+      width: '',
+      height: ''
+    }
+  }
+  setBoardSize() {
+    //setting board width and height on render and component update
+    const elems = document.getElementsByClassName('sticky')
+    for (let elem in elems) {
+      this.state.width = elem.clientWidth
+      this.state.heigth = elem.clientWidth
+    }
+ }
+
+  componentDidMount() {
+    this.setBoardSize()
+  }
+
+  componentDidUpdate() {
+    this.setBoardSize()
+  }
+
   updateTitle() {
     this.props.updateTitle(this.refs.title.value) 
   }
@@ -27,13 +51,35 @@ export default class Modal extends Component {
 
       this.state = {
         editing:false, 
-        title: this.props.board.title
+        title: this.props.board.title, 
+        width: '',
+        height: ''
       }
   
       this.edit = this.edit.bind(this)
       this.updateTitle = this.updateTitle.bind(this)
     }
-   
+
+    setBoardSize() {
+      //setting board width and height on render and component update
+      const elems = document.getElementsByClassName('sticky')
+      
+      for (let elem in elems) {
+        this.setState({
+          width: elem.clientWidth,
+          heigth: elem.clientWidth
+        })
+      } 
+   }
+
+  componentDidMount() {
+    // this.setBoardSize()
+  }
+
+  componentDidUpdate() {
+    //this.setBoardSize()
+  }
+
     add(note, id, color) {
       if (note != "") {
         this.props.add(note, id, color)
@@ -78,6 +124,9 @@ export default class Modal extends Component {
     }
   
     render() {
+      const dimensions = {
+        height: this.state.height
+      }
       const stickiesList = this.props.board.notes.map((sticky, index) => {
           return <StickyNote 
           boardId={this.props.boardId}
@@ -86,6 +135,7 @@ export default class Modal extends Component {
           itemId={index}
           show={this.props.display} 
           delete={this.props.delete}
+          dimensions={dimensions}
           /> 
       })
     

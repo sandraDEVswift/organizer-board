@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import './Utilities.css';
+
 import Navbar from './components/NavBar';
 import DashBoard from './components/Dashboard';
 import ls from 'local-storage'
@@ -20,48 +22,16 @@ class App extends Component {
       stickies: 'stickies', 
       cards: 'cards'
     }
-    /*
     this.state = {
-      data: [
-          {title: 'board 1',
-            notes: [
-            {text: 'note 1', color: 'pink', rotate: this.rotate.five, visibility: false},
-            {text: 'note 2', color: 'pink', rotate: this.rotate.four, visibility: false},
-            {text: 'note 3', color: 'blue', rotate: this.rotate.five, visibility: false}
-          ]}, 
-          {title: 'board 2', 
-            notes: [
-            {text: 'note 1', color: 'pink', rotate: this.rotate.three, visibility: false},
-            {text: 'note 2', color: 'blue', rotate: this.rotate.four, visibility: false},
-            {text: 'note 3', color: 'pink', rotate: this.rotate.three, visibility: false},
-            {text: 'note 3', color: 'yellow', rotate: this.rotate.five, visibility: false},
-          ]},
-          {title: 'board ',
-            notes: [
-            {text: 'note 1', color: 'blue', rotate: this.rotate.four, visibility: false},
-            {text: 'note 2', color: 'blue', rotate: this.rotate.five, visibility: false},
-            {text: 'note 3', color: 'yellow', rotate: this.rotate.three, visibility: false}
-          ]},
-          {title: 'board 4', 
-            notes: [
-            {text: 'note 1', color: 'blue', rotate: this.rotate.five, visibility: false},
-            {text: 'note 2', color: 'yellow', rotate: this.rotate.five, visibility: false},
-            {text: 'note 3', color: 'blue', rotate: this.rotate.five, visibility: false}, 
-            {text: 'note 4', color: 'pink', rotate: this.rotate.five, visibility: false}, 
-            {text: 'note 5', color: 'pink', rotate: this.rotate.five, visibility: false}
-          ]}
-      ],
-      selectedOption: 'pink', 
-      appearance: this.styling.stickies
-    }*/
-
-    this.state = {
-      data: [
+      dummyData: [
           {title: 'board 1',
             notes: [
             {text: 'note 1', color: 'pink', rotate: this.rotate.five, visibility: false} 
           ]}
       ],
+      data: [],
+      width: '', 
+      heigth: '',
       selectedOption: 'pink', 
       appearance: this.styling.stickies
     }
@@ -74,15 +44,15 @@ class App extends Component {
     this.updateSettings = this.updateSettings.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
   }
-
   componentDidMount() {
-    this.setBoardSize()
+    if (this.state.data.length == 0) {
+      this.setState({
+        data: this.state.dummyData
+      }) 
+    } 
     this.setState({
       data : ls.get('data', this.state.data)
     })
-  }
-
-  componentWillUpdate() {
     this.setBoardSize()
   }
 
@@ -93,25 +63,35 @@ class App extends Component {
   setBoardSize() {
     //setting board width and height on render and component update
     const elems = document.getElementsByClassName('board')
-   
-    for (let elem of elems) {
-      this.state.width = elem.clientWidth
-      this.state.heigth = elem.clientWidth
-      console.log('width: '+ elem.clientWidth + ', height: ' + elem.clientWidth);
-    }
-  }
+      for(let elem in elems) {
+          for (let el in elem.item) {
+            console.log('height: ' + el)
+          }  
+        this.setState({
+          width: elem.clientHeight, 
+          height: elem.clientWidth
+        })
+        
+      }   
+   }
+
   handleColorSelection(color) {
     this.setState({
       selectedOption: color
     });
-    console.log('color selected: ' + color)
   }
 
 add(note, id) {
   const rotates = Object.values(this.rotate).map(val  => {return val})
-  let rotate = rotates[Math.floor(Math.random() * rotates.length)]
-  console.log(id)
-  this.state.data[id].notes.push({text: note, color: this.state.selectedOption, rotate: rotate, visibility: false})
+  let rotate = rotates[Math.floor(Math.random() * rotates.length)]  
+  //allowing a max of 9 sticky notes per board - beyond this number, the user is prompted to create a separate new board
+  if (this.state.data[id].notes.length < 9) {
+    this.state.data[id].notes.push({text: note, color: this.state.selectedOption, rotate: rotate, visibility: false}) 
+  } else {
+    if(window.confirm('you can have a maximum of 9 stickies per board - Do you want to create a new board')) {
+      this.addBoard()
+    }
+  }
   this.setState({
     data : this.state.data
   });
@@ -124,6 +104,7 @@ addBoard() {
     data : this.state.data
   });
   this.setBoardSize()
+  console.log('height: ' + this.state.heigth);
 }
 
 deleteBoard(id) {
@@ -159,6 +140,9 @@ update(boardId, title) {
 delete(boardId, itemId) {
   let board = this.state.data[boardId]
   board.notes.splice(itemId, 1)
+  this.setState({
+    data : this.state.data
+  });
 }
 
 updateSettings(input) {
@@ -176,6 +160,7 @@ updateSettings(input) {
 }
 
 render() {
+  
   return (
     <div>
       <Navbar 
@@ -191,7 +176,9 @@ render() {
       update={this.update}
       display={this.display}
       colorSelection={this.state.selectedOption}
-      handleColorSelection={this.handleColorSelection}/>
+      handleColorSelection={this.handleColorSelection}
+      height={this.state.heigth}
+      />
     </div>
   );
 }

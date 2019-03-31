@@ -1,224 +1,180 @@
+@import url(http://fonts.googleapis.com/css?family=Satisfy);
 .App {
-  text-align: center;
+text-align: center;
 }
 
 .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+animation: App-logo-spin infinite 20s linear;
+height: 40vmin;
+pointer-events: none;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+background-color: #282c34;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+font-size: calc(10px + 2vmin);
+color: white;
 }
 
 .App-link {
-  color: #61dafb;
-}
-
-.margin10 {
-  margin-bottom : 20px;
+color: #61dafb;
 }
 
 @keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+from {
+  transform: rotate(0deg);
+}
+to {
+  transform: rotate(360deg);
+}
+}
+
+.quote-container {
+  margin-top: 50px;
+  position: relative;
+  z-index: 1000;
+}
+
+.board {
+  width: auto;
+  padding: 20px;
+  background: #FEEF57; 
+}
+
+.board h5 {
+  font-family: 'Satisfy';
+}
+
+.sticky {
+  color: #333;
+  position: relative;
+  background:#ffc;
+  display:block;
+  margin-bottom: 20px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Satisfy;
+
+  /* Firefox */
+  -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+  /* Safari+Chrome */
+  -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+  /* Opera */
+  box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+}
+
+.big .author {
+  display: block;
+  margin: 40px 0 0 0;
+  text-align: right;
+  text-decoration:none;
+}
+
+.FourDeg {
+  -o-transform:rotate(4deg);
+  -webkit-transform:rotate(4deg);
+  -moz-transform:rotate(4deg);
+  position:relative;
+  top:5px;
+}
+.ThreeDegBackwards {
+  -o-transform:rotate(-3deg);
+  -webkit-transform:rotate(-3deg);
+  -moz-transform:rotate(-3deg);
+  position:relative;
+  top:-5px;
+}
+.FiveDeg {
+  -o-transform:rotate(-5deg);
+  -webkit-transform:rotate(-5deg);
+  -moz-transform:rotate(-5deg);
+  position:relative;
+  top:-10px;
 }
 
 
-@import url(http://fonts.googleapis.com/css?family=Satisfy);
+.sticky-note:nth-child(odd) {
+  -webkit-transform: rotate(-2deg);
+  -moz-transform: rotate(-2deg);
+  -o-transform: rotate(-2deg);
+  -ms-transform: rotate(-2deg);
+  transform: rotate(-2deg);
+}
 
-.quote-container {
-    margin-top: 50px;
-    position: relative;
-    z-index: 1000;
-  }
+.sticky-note:nth-child(even) {
+  -webkit-transform: rotate(2deg);
+  -moz-transform: rotate(2deg);
+  -o-transform: rotate(2deg);
+  -ms-transform: rotate(2deg);
+  transform: rotate(2deg);
+}
 
-  .board {
-    width: auto;
-    padding: 20px;
-    background: #FEEF57; 
-  }
+.options {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  display: none;
+}
 
-  .board h5 {
-    font-family: 'Satisfy';
-  }
+.display {
+  display: block;
+}
 
-  .width25 {
-    flex: 0 0 25%;
-    max-width: 25%
-  }
+.radioBtncolor {
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+}
 
-  .width {
-    flex: 0 0 14%;
-    max-width: 14%;
-  }
-  
-  
+.font10 {
+  font-size: 10px!important;
+}
 
-  .sticky {
-    color: #333;
-    position: relative;
-    background:#ffc;
-    display:block;
-    margin-bottom: 20px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: Satisfy;
- 
-    /* Firefox */
-    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
-    /* Safari+Chrome */
-    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
-    /* Opera */
-    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+
+@-webkit-keyframes removed-item-animation {
+  0% {
+    opacity: 1;
+    -webkit-transform: rotateZ(0);
+    transform: rotateZ(0)
   }
 
-  .big {
-    width:10em;
-    padding:1em;
-    font-size: 20px;
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(600px) rotateZ(90deg);
+    transform: translateY(600px) rotateZ(90deg)
+  }
+}
+
+@-o-keyframes removed-item-animation {
+  0% {
+    opacity: 1;
+    -o-transform: rotateZ(0);
+    transform: rotateZ(0)
   }
 
-  .big .author {
-    display: block;
-    margin: 40px 0 0 0;
-    text-align: right;
-    text-decoration:none;
+  100% {
+    opacity: 0;
+    -o-transform: translateY(600px) rotateZ(90deg);
+    transform: translateY(600px) rotateZ(90deg)
   }
+}
 
-  .small {
-    width:5em;
-  }
+.item {
+  -webkit-animation: new-item-animation .3s linear forwards;
+  -o-animation: new-item-animation .3s linear forwards;
+  animation: new-item-animation .3s linear forwards
+}
 
-  .FourDeg {
-    -o-transform:rotate(4deg);
-    -webkit-transform:rotate(4deg);
-    -moz-transform:rotate(4deg);
-    position:relative;
-    top:5px;
-  }
-  .ThreeDegBackwards {
-    -o-transform:rotate(-3deg);
-    -webkit-transform:rotate(-3deg);
-    -moz-transform:rotate(-3deg);
-    position:relative;
-    top:-5px;
-  }
-  .FiveDeg {
-    -o-transform:rotate(5deg);
-    -webkit-transform:rotate(5deg);
-    -moz-transform:rotate(5deg);
-    position:relative;
-    top:-10px;
-  }
-
-  .yellow {
-    background: #eae672;
-    
-  }
-
-  .sticky-note:nth-child(odd) {
-    -webkit-transform: rotate(-2deg);
-    -moz-transform: rotate(-2deg);
-    -o-transform: rotate(-2deg);
-    -ms-transform: rotate(-2deg);
-    transform: rotate(-2deg);
-  }
-
-  .sticky-note:nth-child(even) {
-    -webkit-transform: rotate(2deg);
-    -moz-transform: rotate(2deg);
-    -o-transform: rotate(2deg);
-    -ms-transform: rotate(2deg);
-    transform: rotate(2deg);
-  }
-
-  .options {
-    position: absolute;
-    right: 5px;
-    top: 5px;
-    display: none;
-  }
-
-  .display {
-    display: block;
-  }
-
-  .radioBtncolor {
-    height: 20px;
-    width: 20px;
-    border-radius: 5px;
-  }
-
-  .pink {
-    background: #EA6BB3;
-  }
-
-  .orange {
-    background: #F5C64C;
-  }
-
-  .blue {
-    background: #ADF2F6
-  }
-
-  .font10 {
-    font-size: 10px!important;
-  }
- 
-
-  @-webkit-keyframes removed-item-animation {
-    0% {
-      opacity: 1;
-      -webkit-transform: rotateZ(0);
-      transform: rotateZ(0)
-    }
-  
-    100% {
-      opacity: 0;
-      -webkit-transform: translateY(600px) rotateZ(90deg);
-      transform: translateY(600px) rotateZ(90deg)
-    }
-  }
-  
-  @-o-keyframes removed-item-animation {
-    0% {
-      opacity: 1;
-      -o-transform: rotateZ(0);
-      transform: rotateZ(0)
-    }
-  
-    100% {
-      opacity: 0;
-      -o-transform: translateY(600px) rotateZ(90deg);
-      transform: translateY(600px) rotateZ(90deg)
-    }
-  }
-  
-  .item {
-    -webkit-animation: new-item-animation .3s linear forwards;
-    -o-animation: new-item-animation .3s linear forwards;
-    animation: new-item-animation .3s linear forwards
-  }
-
-  .removed-item {
-    -webkit-animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
-    -o-animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
-    animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
-    -webkit-transform-origin: 0% 100%;
-    -ms-transform-origin: 0% 100%;
-    -o-transform-origin: 0% 100%;
-    transform-origin: 0% 100%
-  }
+.removed-item {
+  -webkit-animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+  -o-animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+  animation: removed-item-animation 0.5s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards;
+  -webkit-transform-origin: 0% 100%;
+  -ms-transform-origin: 0% 100%;
+  -o-transform-origin: 0% 100%;
+  transform-origin: 0% 100%
+}

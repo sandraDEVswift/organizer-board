@@ -8,7 +8,7 @@ var postit = function() {
     let height = board.width()
     board.css('height', height + 'px')
     small.css('height', smallHeight + 'px')
-    big.css('heig   ht', bigHeight + 'px')
+    big.css('height', bigHeight + 'px')
 }
 
 

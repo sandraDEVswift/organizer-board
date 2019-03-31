@@ -1,0 +1,49 @@
+.margin20 {
+margin-bottom : 20px;
+}
+
+.margin30 {
+margin-bottom : 30px;
+}
+
+.margin40 {
+margin-bottom : 40px;
+}
+
+.width25 {
+flex: 0 0 25%;
+max-width: 25%
+}
+
+.width {
+flex: 0 0 14%;
+max-width: 14%;
+}
+
+/* size */
+.big {
+  width:10em;
+  padding:1em;
+  font-size: 20px;
+}
+
+.small {
+  width:5em;
+}
+
+/* colors */
+.yellow {
+  background: #eae672; 
+}
+
+.pink {
+  background: #EA6BB3;
+}
+
+.orange {
+  background: #F5C64C;
+}
+
+.blue {
+  background: #ADF2F6
+}

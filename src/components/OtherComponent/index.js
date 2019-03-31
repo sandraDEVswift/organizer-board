@@ -8,8 +8,7 @@ export class StickyNode extends Component {
         <br />
         <div className={`little-note sticky ${this.props.note.color} ${this.props.note.rotate }`}>
             <blockquote className="font10">
-               {this.props.note.text}
-               
+               {this.props.note.text} 
             </blockquote>
         </div>
       </div>
