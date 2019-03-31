@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Navbar from './components/NavBar';
 import DashBoard from './components/Dashboard';
+import ls from 'local-storage'
 
 class App extends Component {
 
@@ -19,8 +20,7 @@ class App extends Component {
       stickies: 'stickies', 
       cards: 'cards'
     }
-  
-
+    /*
     this.state = {
       data: [
           {title: 'board 1',
@@ -53,6 +53,17 @@ class App extends Component {
       ],
       selectedOption: 'pink', 
       appearance: this.styling.stickies
+    }*/
+
+    this.state = {
+      data: [
+          {title: 'board 1',
+            notes: [
+            {text: 'note 1', color: 'pink', rotate: this.rotate.five, visibility: false} 
+          ]}
+      ],
+      selectedOption: 'pink', 
+      appearance: this.styling.stickies
     }
     this.add = this.add.bind(this)
     this.display = this.display.bind(this)
@@ -63,15 +74,23 @@ class App extends Component {
     this.updateSettings = this.updateSettings.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
   }
+
   componentDidMount() {
     this.setBoardSize()
+    this.setState({
+      data : ls.get('data', this.state.data)
+    })
   }
 
   componentWillUpdate() {
     this.setBoardSize()
   }
-  
-setBoardSize() {
+
+  componentDidUpdate() {
+    ls.set('data', this.state.data)
+  }
+
+  setBoardSize() {
     //setting board width and height on render and component update
     const elems = document.getElementsByClassName('board')
    
@@ -81,12 +100,12 @@ setBoardSize() {
       console.log('width: '+ elem.clientWidth + ', height: ' + elem.clientWidth);
     }
   }
-handleColorSelection(color) {
-  this.setState({
-    selectedOption: color
-  });
-  console.log('color selected: ' + color)
-}
+  handleColorSelection(color) {
+    this.setState({
+      selectedOption: color
+    });
+    console.log('color selected: ' + color)
+  }
 
 add(note, id) {
   const rotates = Object.values(this.rotate).map(val  => {return val})
