@@ -15,6 +15,12 @@ class App extends Component {
       five : 'FiveDeg'
     }
 
+    this.styling = {
+      stickies: 'stickies', 
+      cards: 'cards'
+    }
+  
+
     this.state = {
       data: [
           {title: 'board 1',
@@ -45,7 +51,8 @@ class App extends Component {
             {text: 'note 5', color: 'pink', rotate: this.rotate.five, visibility: false}
           ]}
       ],
-      selectedOption: 'pink'
+      selectedOption: 'pink', 
+      appearance: this.styling.stickies
     }
     this.add = this.add.bind(this)
     this.display = this.display.bind(this)
@@ -53,22 +60,32 @@ class App extends Component {
     this.addBoard = this.addBoard.bind(this)
     this.update = this.update.bind(this)
     this.deleteBoard = this.deleteBoard.bind(this)
+    this.updateSettings = this.updateSettings.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
   }
+  componentDidMount() {
+    this.setBoardSize()
+  }
 
+  componentWillUpdate() {
+    this.setBoardSize()
+  }
+  
+setBoardSize() {
+    //setting board width and height on render and component update
+    const elems = document.getElementsByClassName('board')
+   
+    for (let elem of elems) {
+      this.state.width = elem.clientWidth
+      this.state.heigth = elem.clientWidth
+      console.log('width: '+ elem.clientWidth + ', height: ' + elem.clientWidth);
+    }
+  }
 handleColorSelection(color) {
   this.setState({
     selectedOption: color
   });
   console.log('color selected: ' + color)
-}
-
-get(id) {
-  this.state.data.forEach((board) => {
-    if (board.title == id) {
-      return board
-    }
-  });
 }
 
 add(note, id) {
@@ -87,6 +104,7 @@ addBoard() {
   this.setState({
     data : this.state.data
   });
+  this.setBoardSize()
 }
 
 deleteBoard(id) {
@@ -97,7 +115,6 @@ deleteBoard(id) {
   } else {
     this.state.data.splice(id, 1)
   }
- 
   this.setState({
     data : this.state.data
   });
@@ -115,7 +132,6 @@ display(toggle, boardId, itemId) {
 update(boardId, title) {
   let board = this.state.data[boardId]
   board.title = title
-  console.log('updating '+  board.title  + 'with ' + title)
   this.setState({
     data : this.state.data
   });
@@ -124,15 +140,29 @@ update(boardId, title) {
 delete(boardId, itemId) {
   let board = this.state.data[boardId]
   board.notes.splice(itemId, 1)
-  this.setState({
-    data : this.state.data
-  });
+}
+
+updateSettings(input) {
+  const styling = {
+    stickies: 'stickies', 
+    cards: 'cards'
+  }
+
+  var settings = ''
+  switch (input) {
+    case 'stickies': settings = styling.stickies
+    case 'cards': settings = styling.cards
+  }
+  this.state.appearance = settings
 }
 
 render() {
   return (
     <div>
-      <Navbar addBoard={this.addBoard} />
+      <Navbar 
+      addBoard={this.addBoard} 
+      updateSettings={this.updateSettings}
+      />
       <br /> <br />
       <DashBoard 
       boards={this.state.data} 
