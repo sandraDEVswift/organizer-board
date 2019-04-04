@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
 
+
 //1 dot representing a sticky note on the board
 export class StickyNode extends Component {
+    
     render() {
+      const text = this.props.text
+      const t = {
+        
+      }
+  
       return(
       <div className="col-sm-4">
         <br />

@@ -5,7 +5,7 @@ export default class DashBoard extends Component {
   constructor(props) {
     super(props)
   }
-
+  
   render() {
     const boards = this.props.boards.map((board, key) => {
       return <Board 
@@ -19,7 +19,7 @@ export default class DashBoard extends Component {
       update={this.props.update}
       colorSelection={this.props.colorSelection}
       handleColorSelection={this.props.handleColorSelection}
-      height={this.props.height}
+      setBoardSize={this.setBoardSize}
       />
     })
     return(
@@ -35,4 +35,4 @@ export default class DashBoard extends Component {
         </div>
     )
   }
-  }
+}

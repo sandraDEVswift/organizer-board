@@ -44,42 +44,37 @@ class App extends Component {
     this.updateSettings = this.updateSettings.bind(this)
     this.handleColorSelection = this.handleColorSelection.bind(this)
   }
+  
   componentDidMount() {
-    if (this.state.data.length == 0) {
+
+    if (ls.get('data', this.state.data) != null) {
+      let data = ls.get('data', this.state.data)
+      if (data.length > 0) {
+        this.setState({
+          data : data
+        })
+      }
+    } else {
       this.setState({
         data: this.state.dummyData
       }) 
-    } 
-    this.setState({
-      data : ls.get('data', this.state.data)
-    })
-    this.setBoardSize()
+    }
+
+    ls.set('data', this.state.data)
   }
 
   componentDidUpdate() {
     ls.set('data', this.state.data)
   }
-
-  setBoardSize() {
-    //setting board width and height on render and component update
-    const elems = document.getElementsByClassName('board')
-      for(let elem in elems) {
-          for (let el in elem.item) {
-            console.log('height: ' + el)
-          }  
-        this.setState({
-          width: elem.clientHeight, 
-          height: elem.clientWidth
-        })
-        
-      }   
-   }
-
   handleColorSelection(color) {
     this.setState({
       selectedOption: color
     });
   }
+
+setBoardSize(object) {
+  console.log(object.clientHeight)
+}
 
 add(note, id) {
   const rotates = Object.values(this.rotate).map(val  => {return val})
@@ -103,8 +98,6 @@ addBoard() {
   this.setState({
     data : this.state.data
   });
-  this.setBoardSize()
-  console.log('height: ' + this.state.heigth);
 }
 
 deleteBoard(id) {

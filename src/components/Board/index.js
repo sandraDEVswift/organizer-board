@@ -3,28 +3,40 @@ import Modal from '.././Modal';
 import {BoardNode} from '.././OtherComponent';
 
 
+
 //list of boards
 export default class Board extends Component {
     constructor(props) {
       super(props) 
+      this.setBoardSize = this.setBoardSize.bind(this)  
+      this.height = ''
     }
 
+    setBoardSize(object) {
+      this.height = object.clientWidth  
+    }
     componentDidMount() {
       const children  = this.props;
-      console.log(children.dimensions)
+      this.setBoardSize(this.refs.board)
     }
+    
     componentDidUpdate() {
       const children  = this.props;
-      console.log(children.dimensions)
+      this.setBoardSize(this.refs.board)
     }
+
     render() {
+      
       let title = (this.props.board.title).toUpperCase()
       const children  = this.props;
-      const height = '"' + children.height + 'px"'
-      console.log(height)
-  
+
+   
+      const pStyle = {
+        height: (window.outerWidth / 4 - 20) + 'px'
+      };
+    
       return(
-        <div className="col-sm-4 margin40">
+        <div className="col-sm-4 margin40" ref="board">
           <div className={`options ${this.display}`} onClick={() => this.delete(this.boardId, this.itemId)}>
             <button className="btn btn-link trash" >
               <i class="fa fa-times-circle" aria-hidden="true"></i>
@@ -43,7 +55,8 @@ export default class Board extends Component {
         display={this.props.display} 
         />
   
-        <div className="board" data-toggle="modal" data-target={`#item${this.props.boardId}`} style={{height: '330px'}}>
+
+        <div className="board" data-toggle="modal" data-target={`#item${this.props.boardId}`} style={pStyle}>
         <br />
           <div className="container">
             <h5>{title}</h5>

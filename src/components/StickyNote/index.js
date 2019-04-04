@@ -27,12 +27,13 @@ export default class StickyNote extends Component {
         <div className="col-sm-4 margin30"
         onMouseEnter={() => this.onDisplay(true, this.boardId, this.itemId)}
         onMouseLeave={() => this.onDisplay(false, this.boardId, this.itemId)} >
-            <div className= {`quote-container sticky big yellow item ${this.props.sticky.color} ${this.props.sticky.rotate }`}  style={{height: '160px'}}>
+            <div className= {`quote-container sticky big  ${this.props.sticky.color} ${this.props.sticky.rotate }`}  style={{height: '160px'}}>
     
-                    <blockquote>
-                       {this.props.sticky.text}
-                      <cite className="author"></cite>
-                    </blockquote>
+                  
+                      <p>{this.props.sticky.text}</p>
+                     
+                    
+                   
     
                     <div className={`options ${this.display}`} onClick={() => this.delete(this.boardId, this.itemId)}>
                           <button className="btn btn-link trash" >

@@ -1,5 +1,27 @@
 import React, { Component } from 'react';
 
+
+class Dropdown extends Component {
+    updateSettings(input) {
+    this.props.updateSettings(input)
+    }
+
+    render() {
+      return( 
+        <ul className="navbar-nav">
+        <li className="nav-item dropdown">
+          <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Settings
+          </a>
+          <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a className="dropdown-item" href="#" onClick={this.updateSettings('stickies')}>Stickies</a>
+            <a className="dropdown-item" href="#" onClick={this.updateSettings('cards')}>Cards</a>
+          </div>
+        </li>
+      </ul>
+      )
+    }
+}
 export default class Navbar extends Component {
     constructor(props) {
       super(props)
@@ -9,11 +31,10 @@ export default class Navbar extends Component {
     addBoard() {
       this.props.addBoard()
     }
-
     updateSettings(input) {
-      this.props.updateSettings(input)
+      
     }
-
+  
     render() { 
       return(
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -22,18 +43,7 @@ export default class Navbar extends Component {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav">
-            
-            <li className="nav-item dropdown">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Settings
-              </a>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a className="dropdown-item" href="#" onClick={this.updateSettings('stickies')}>Stickies</a>
-                <a className="dropdown-item" href="#" onClick={this.updateSettings('cards')}>Cards</a>
-              </div>
-            </li>
-          </ul>
+            {/* <Dropdown updateSettings={this.updateSettings}/> */}
         </div>
       </nav>
       )

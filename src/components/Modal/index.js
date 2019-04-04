@@ -34,7 +34,7 @@ class Title extends Component {
   render() {
     if (this.props.editing) {
       return(
-        <input type="text" class="form-control" ref="title" defaultValue={this.props.title} aria-describedby="emailHelp" placeholder="Enter email" onChange={() => {this.updateTitle()}}/>
+        <input type="text" class="form-control"  ref="title" defaultValue={this.props.title} aria-describedby="emailHelp" placeholder="Enter email" onChange={() => {this.updateTitle()}}/>
       )
     } else {
       return(
